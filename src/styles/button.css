@@ -1,0 +1,7 @@
+button:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+button:not(:disabled):hover{
+    filter: brightness(0.9);
+}
