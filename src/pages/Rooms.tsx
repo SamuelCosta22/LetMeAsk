@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { database } from '../services/firebase'
 import { questionSent } from '../toasts/toasts'
+import { Question } from '../components/Question'
 
 type RoomParams = {
     id: string;
@@ -20,7 +21,7 @@ type firebaseQuestions = Record<string, {
     isAnswered: boolean,
     isHighLighted: boolean
 }>
-type Question = {
+type QuestionType = {
     id: string;
     author: {
         name: string,
@@ -36,7 +37,7 @@ export function Room(){
     const params = useParams<RoomParams>();
     const roomId = params.id;
     const[newQuestion, setNewQuestion] = useState('');
-    const[questions, setQuestions] = useState<Question[]>([]);
+    const[questions, setQuestions] = useState<QuestionType[]>([]);
     const[title, setTitle] = useState('');
 
     useEffect(() => {
@@ -59,7 +60,6 @@ export function Room(){
     }, [roomId]);
 
     async function handleSendQuestion(event: FormEvent){
-        questionSent();
         event.preventDefault();
         if(newQuestion.trim() === ''){
             return;
@@ -79,6 +79,7 @@ export function Room(){
         }
         await database.ref(`rooms/${roomId}/questions`).push(question);
         setNewQuestion("");
+        questionSent();
     }
 
     return(
@@ -118,7 +119,13 @@ export function Room(){
                     </div>
                 </form>
 
-                {JSON.stringify(questions)}
+                <div className='mt-8'>
+                    {questions.map(question => {
+                        return(
+                            <Question key={question.id} content={question.content} author={question.author} />
+                        )
+                    })}
+                </div>
             </main>
         </div>
     )
