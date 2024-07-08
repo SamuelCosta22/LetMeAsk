@@ -1,10 +1,9 @@
-#page-auth{
+/*#page-auth{
     display: flex;
     align-items: stretch;
     height: 100vh;
 }
-
-/*#page-auth aside{
+#page-auth aside{
     flex: 7;
     background: #835afd;
     color: #fff;
