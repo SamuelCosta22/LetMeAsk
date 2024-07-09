@@ -14,8 +14,8 @@ export const sucessToCopy = () => {
     });
 };
 
-export const errorToEnter = () => {
-    toast.error('Room does not exists!', {
+export const errorToEnter = (text:string) => {
+    toast.error(text, {
         position: "bottom-right",
         autoClose: 1500,
         hideProgressBar: false,

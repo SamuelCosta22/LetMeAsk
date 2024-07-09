@@ -1,0 +1,19 @@
+.like-button{
+    /*flex items-end gap-2 text-[#737380] border-0 bg-transparent cursor-pointer hover:opacity-80*/
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    color: #737380;
+    border: 0px;
+    background: transparent;
+    cursor: pointer;
+}
+.like-button:hover{
+    filter: brightness(0.7);
+}
+.liked{
+    color: #835afd;
+}
+.liked svg path{
+    stroke: #835afd
+}

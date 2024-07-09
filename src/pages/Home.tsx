@@ -28,13 +28,18 @@ export function Home(){
     async function handleJoinRoom(event: FormEvent){
         event.preventDefault();
         if(roomCode.trim() === ''){
+            errorToEnter('The room code is null!');
             return;
         }
 
         const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
         if(!roomRef.exists()){
-            errorToEnter();
+            errorToEnter('Room does not exists!');
+            return;
+        }
+        if(roomRef.val().endedAt){
+            errorToEnter('Room already closed!');
             return;
         }
 
@@ -57,7 +62,7 @@ export function Home(){
                     </button>
                     <div className='separator'>ou entre em uma sala</div>
                     <form onSubmit={handleJoinRoom}>
-                        <input className='w-full h-[50px] rounded-lg py-0 px-4 bg-[#fff] border border-[#a8a8b3]' type="text" onChange={event => setRoomCode(event.target.value)} value={roomCode} placeholder="Digite o código da sala" />
+                        <input className='w-full h-[50px] rounded-lg py-0 px-4 bg-[#fff] border border-[#a8a8b3]' type="text" onChange={event => setRoomCode(event.target.value)} value={roomCode} placeholder="Digite o código da sala:" />
                         <Button type='submit'>Entrar na sala</Button>
                         <ToastContainer />
                     </form>
